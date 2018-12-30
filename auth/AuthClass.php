@@ -101,5 +101,18 @@ class AuthClass {
 		}
 		return false;
 	}
+	
+	public function getInfo($cpf) {
+		if(isset($cpf)) {
+			$cpf = mysqli_real_escape_string($this->con, $cpf);
+			$sql_line = "SELECT id, user, email, admin, number FROM users WHERE cpf = '$cpf'";
+			$q = mysqli_query($this->con, $sql_line);
+			if(mysqli_num_rows($q) > 0) {
+				$row = mysqli_fetch_assoc($q);
+				return $row;
+			}
+		}
+		return null;
+	}
 }
 ?>
